@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 19:31:55 by btvildia          #+#    #+#             */
-/*   Updated: 2023/12/17 19:56:11 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/03/12 23:31:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_find_uns(unsigned int n, int i)
 	return (i);
 }
 
-int	ft_ptr(uintptr_t nb, int j)
+int	ft_ptr(unsigned long nb, int j)
 {
 	if (nb >= 16)
 	{
@@ -92,7 +92,7 @@ int	ft_ptr(uintptr_t nb, int j)
 	return (j);
 }
 
-int	ft_find_ptr(uintptr_t ptr, int j)
+int	ft_find_ptr(unsigned long ptr, int j)
 {
 	j = ft_find_str("0x", j);
 	if (ptr == 0)

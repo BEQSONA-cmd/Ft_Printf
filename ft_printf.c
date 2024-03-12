@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:55:16 by btvildia          #+#    #+#             */
-/*   Updated: 2023/12/17 19:56:15 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/03/12 23:31:55 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_next_precent(const char *format, va_list args, int j, int i)
 	if (format[i] == 'u')
 		j = ft_find_uns(va_arg(args, int), j);
 	if (format[i] == 'p')
-		j = ft_find_ptr(va_arg(args, uintptr_t), j);
+		j = ft_find_ptr(va_arg(args, unsigned int), j);
 	return (j);
 }
 
