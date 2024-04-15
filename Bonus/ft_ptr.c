@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:38:31 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/14 22:31:57 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:51:18 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	ft_ptr(unsigned long ptr, int j)
 	return (j);
 }
 
-int	ft_ptr_width_before(unsigned long ptr, int j, int width_before)
+int	ft_ptr_width_before(unsigned long ptr, int j, t_flags flags)
 {
-	j = ft_print_space(width_before - ft_hexlen(ptr) - 2, j);
+	j = ft_print_space(flags.width_before - ft_hexlen(ptr) - 2, j, flags.fill);
 	j = ft_ptr(ptr, j);
 	return (j);
 }
@@ -51,6 +51,6 @@ int	ft_ptr_width_before(unsigned long ptr, int j, int width_before)
 int	ft_ptr_width_after(unsigned long ptr, int j, int width_after)
 {
 	j = ft_ptr(ptr, j);
-	j = ft_print_space(width_after - ft_hexlen(ptr) - 2, j);
+	j = ft_print_space(width_after - ft_hexlen(ptr) - 2, j, ' ');
 	return (j);
 }

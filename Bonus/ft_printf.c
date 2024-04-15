@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:55:16 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/15 13:48:16 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/15 22:16:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,128 +14,135 @@
 
 int	ft_next_precent(const char *format, va_list args, int j, int i)
 {
-	int		width_after;
-	int		width_before;
-	int		precision;
 	int		k;
 	int		l;
-	char	flags[5];
+	t_flags	flags;
 
 	l = 0;
-	precision = 0;
-	width_before = 0;
-	width_after = 0;
+	flags.precision = 0;
+	flags.width_before = 0;
+	flags.width_after = 0;
+	flags.fill = ' ';
+	flags.width = 0;
 	k = 0;
-	flags[0] = '\0';
-	flags[1] = '\0';
-	flags[2] = '\0';
-	flags[3] = '\0';
-	flags[4] = '\0';
+	flags.flags[0] = '\0';
+	flags.flags[1] = '\0';
+	flags.flags[2] = '\0';
+	flags.flags[3] = '\0';
+	flags.flags[4] = '\0';
+	if (format[i] == '0')
+		flags.fill = '0';
 	while (format[i] == '-' || format[i] == '+' || format[i] == '0'
 		|| format[i] == '#' || format[i] == ' ')
 	{
-		flags[k] = format[i];
+		flags.flags[k] = format[i];
 		i++;
 		k++;
 	}
-	if (format[i - 1] == '-' || (format[i - 1] == '0' && format[i - 2] == '-'))
+	if (format[i - 1] == '-')
 	{
 		while (format[i] >= '0' && format[i] <= '9')
 		{
-			width_after = width_after * 10 + (format[i] - '0');
+			flags.width_after = flags.width_after * 10 + (format[i] - '0');
 			i++;
 		}
+		flags.width = flags.width_after;
 	}
 	else if (format[i] >= '0' && format[i] <= '9')
 	{
 		while (format[i] >= '0' && format[i] <= '9')
 		{
-			width_before = width_before * 10 + (format[i] - '0');
+			flags.width_before = flags.width_before * 10 + (format[i] - '0');
 			i++;
 		}
+		flags.width = flags.width_before;
 	}
 	if (format[i] == '.')
 	{
 		i++;
+		if (format[i] < '0' || format[i] > '9')
+			flags.precision = -1;
 		while (format[i] >= '0' && format[i] <= '9')
 		{
-			precision = precision * 10 + (format[i] - '0');
+			flags.precision = flags.precision * 10 + (format[i] - '0');
 			i++;
 		}
 	}
 	if (format[i] == 's')
 	{
-		if (width_before > 0)
-			j = ft_str_width_before(va_arg(args, char *), j, width_before,
-					precision);
-		else if (width_after > 0)
-			j = ft_str_width_after(va_arg(args, char *), j, width_after,
-					precision);
+		if (flags.width_before > 0)
+			j = ft_str_width_before(va_arg(args, char *), j, flags,
+					flags.precision);
+		else if (flags.width_after > 0)
+			j = ft_str_width_after(va_arg(args, char *), j, flags.width_after,
+					flags.precision);
 		else
-			j = ft_str_dot(va_arg(args, char *), j, precision);
+			j = ft_str_dot(va_arg(args, char *), j, flags.precision);
 	}
 	else if (format[i] == 'c')
 	{
-		if (width_before > 0)
-			j = ft_char_width_before(va_arg(args, int), j, width_before);
-		else if (width_after > 0)
-			j = ft_char_width_after(va_arg(args, int), j, width_after);
+		if (flags.width_before > 0)
+			j = ft_char_width_before(va_arg(args, int), j, flags);
+		else if (flags.width_after > 0)
+			j = ft_char_width_after(va_arg(args, int), j, flags.width_after);
 		else
 			j = ft_char(va_arg(args, int), j);
 	}
 	else if (format[i] == 'd' || format[i] == 'i')
 	{
-		if (width_before > 0)
-			j = ft_space_number_before(va_arg(args, int), j, flags[0],
-					width_before);
-		else if (width_after > 0)
-			j = ft_space_number_after(va_arg(args, int), j, flags[0],
-					width_after);
+		if (flags.width_before > 0 || flags.precision > 0)
+			j = ft_space_number_before(va_arg(args, int), j, flags.flags[0],
+					flags);
+		else if (flags.width_after > 0)
+			j = ft_space_number_after(va_arg(args, int), j, flags.flags[0],
+					flags.width_after);
 		else
-			j = ft_num(va_arg(args, int), j, flags[0]);
+			j = ft_num(va_arg(args, int), j, flags.flags[0]);
 	}
 	else if (format[i] == 'x')
 	{
-		if (width_before > 0)
-			j = ft_hex_width_before(va_arg(args, size_t), j, flags[2],
-					width_before);
-		else if (width_after > 0)
-			j = ft_hex_width_after(va_arg(args, size_t), j, flags[2],
-					width_after);
+		if (flags.width_before > 0 || flags.precision > 0)
+			j = ft_hex_width_before(va_arg(args, size_t), j, flags.flags[0],
+					flags);
+		else if (flags.width_after > 0)
+			j = ft_hex_width_after(va_arg(args, size_t), j, flags.flags[0],
+					flags.width_after);
 		else
-			j = ft_hexl(va_arg(args, size_t), j, flags[2]);
+			j = ft_hexl(va_arg(args, size_t), j, flags.flags[0]);
 	}
 	else if (format[i] == 'X')
 	{
-		if (width_before > 0)
-			j = ft_hexu_width_before(va_arg(args, size_t), j, flags[2],
-					width_before);
-		else if (width_after > 0)
-			j = ft_hexu_width_after(va_arg(args, size_t), j, flags[2],
-					width_after);
+		if (flags.width_before > 0 || flags.precision > 0)
+			j = ft_hexu_width_before(va_arg(args, size_t), j, flags.flags[0],
+					flags);
+		else if (flags.width_after > 0)
+			j = ft_hexu_width_after(va_arg(args, size_t), j, flags.flags[0],
+					flags.width_after);
 		else
-			j = ft_hexu(va_arg(args, size_t), j, flags[2]);
+			j = ft_hexu(va_arg(args, size_t), j, flags.flags[0]);
 	}
 	else if (format[i] == 'u')
 	{
-		if (width_before > 0)
-			j = ft_uns_width_before(va_arg(args, unsigned int), j,
-					width_before);
-		else if (width_after > 0)
-			j = ft_uns_width_after(va_arg(args, unsigned int), j, width_after);
+		if (flags.width_before > 0 || flags.precision > 0)
+			j = ft_uns_width_before(va_arg(args, unsigned int), j, flags);
+		else if (flags.width_after > 0)
+			j = ft_uns_width_after(va_arg(args, unsigned int), j,
+					flags.width_after);
 		else
 			j = ft_uns(va_arg(args, unsigned int), j);
 	}
 	else if (format[i] == 'p')
 	{
-		if (width_before > 0)
-			j = ft_ptr_width_before(va_arg(args, unsigned long), j,
-					width_before);
-		else if (width_after > 0)
-			j = ft_ptr_width_after(va_arg(args, unsigned long), j, width_after);
+		if (flags.width_before > 0)
+			j = ft_ptr_width_before(va_arg(args, unsigned long), j, flags);
+		else if (flags.width_after > 0)
+			j = ft_ptr_width_after(va_arg(args, unsigned long), j,
+					flags.width_after);
 		else
 			j = ft_ptr(va_arg(args, unsigned long), j);
 	}
+	else if (format[i] == '%')
+		j = ft_char('%', j);
 	return (j);
 }
 
@@ -154,13 +161,14 @@ int	ft_printf(const char *a, ...)
 	va_start(args, a);
 	while (a[i] != '\0')
 	{
-		if (a[i] == '%')
+		if (a[i] == '%' || (a[i - 1] == '%' && a[i] != ' '))
 		{
+			if (a[i - 1] != '%' || a[i] == '%')
+				i++;
 			save = i;
-			i++;
-			if (a[save + 1] == '+' || a[save + 1] == ' ' || a[save + 1] == '#'
-				|| a[save + 1] == '.' || a[save + 1] == '-' || (a[save
-					+ 1] >= '0' && a[save + 1] <= '9'))
+			if (a[save] == '+' || a[save] == ' ' || a[save] == '#'
+				|| a[save] == '.' || a[save] == '-' || (a[save] >= '0'
+					&& a[save] <= '9'))
 			{
 				while (a[save] != 's' && a[save] != 'c' && a[save] != 'd'
 					&& a[save] != 'i' && a[save] != 'u' && a[save] != 'x'
@@ -169,7 +177,6 @@ int	ft_printf(const char *a, ...)
 					save++;
 					k++;
 				}
-				k--;
 			}
 			j = ft_next_precent(a, args, j, i);
 		}
@@ -177,11 +184,13 @@ int	ft_printf(const char *a, ...)
 		{
 			while (k > 0)
 			{
-				k--;
 				i++;
+				k--;
 			}
-			write(1, &a[i], 1);
-			j++;
+			if (a[i] == '\0')
+				break ;
+			else if (a[i] != '%' || a[i] == ' ')
+				j = ft_char(a[i], j);
 		}
 		i++;
 	}

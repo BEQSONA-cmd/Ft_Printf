@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 19:31:55 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/14 21:46:57 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/15 21:32:25 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ int	ft_strlen(char *s)
 	return (i);
 }
 
-int	ft_print_space(int size, int j)
+int	ft_print_space(int size, int j, char c)
 {
 	while (size > 0)
 	{
-		j = ft_char(' ', j);
+		j = ft_char(c, j);
 		size--;
 	}
 	return (j);
