@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:14:16 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/15 22:21:24 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/15 22:59:29 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,9 @@ int	ft_space_number_before(int n, int j, char c, t_flags flags)
 	int	len;
 
 	i = n;
+	len = ft_numlen(i);
 	if (c == ' ' || c == '+')
-		len = ft_numlen(i) + 1;
-	else
-		len = ft_numlen(i);
+		len++;
 	x = flags.width;
 	if (flags.precision > 0)
 	{

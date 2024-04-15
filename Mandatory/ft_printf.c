@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 22:08:41 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/14 22:49:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/15 22:53:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ int	ft_next_precent(const char *format, va_list args, int j, int i)
 
 int	ft_printf(const char *a, ...)
 {
-	va_list args;
-	int i;
-	int j;
+	va_list	args;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;

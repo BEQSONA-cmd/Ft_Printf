@@ -1,9 +1,0 @@
-{
-    "[c]": {
-        "editor.defaultFormatter": "keyhr.42-c-format"
-    },
-    "files.associations": {
-        "chrono": "c",
-        "ios": "c"
-    },
-}
