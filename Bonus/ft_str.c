@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 17:59:46 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/15 21:26:04 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:51:39 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,18 @@ int	ft_str(char *s, int j)
 		j = ft_char(s[i], j);
 		i++;
 	}
+	return (j);
+}
+
+int	handle_format_s(va_list args, int j, t_flags flags)
+{
+	if (flags.width_before > 0)
+		j = ft_str_width_before(va_arg(args, char *), j, flags,
+				flags.precision);
+	else if (flags.width_after > 0)
+		j = ft_str_width_after(va_arg(args, char *), j, flags.width_after,
+				flags.precision);
+	else
+		j = ft_str_dot(va_arg(args, char *), j, flags.precision);
 	return (j);
 }

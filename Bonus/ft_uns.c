@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:34:18 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/15 22:52:12 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:51:47 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,16 @@ int	ft_uns_width_after(unsigned int n, int i, int width_after)
 	i = ft_uns(n, i);
 	i = ft_print_space(width_after - ft_unslen(n), i, ' ');
 	return (i);
+}
+
+int	handle_format_u(va_list args, int j, t_flags flags)
+{
+	if (flags.width_before > 0 || flags.precision > 0)
+		j = ft_uns_width_before(va_arg(args, unsigned int), j, flags);
+	else if (flags.width_after > 0)
+		j = ft_uns_width_after(va_arg(args, unsigned int), j,
+				flags.width_after);
+	else
+		j = ft_uns(va_arg(args, unsigned int), j);
+	return (j);
 }

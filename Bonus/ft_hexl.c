@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:17:15 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/15 22:03:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:51:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,17 @@ int	ft_hex_width_after(size_t n, int j, char c, int width_after)
 		width_after -= 2;
 	j = ft_hexl(i, j, c);
 	j = ft_print_space(width_after - ft_hexlen(i), j, ' ');
+	return (j);
+}
+
+int	handle_format_x(va_list args, int j, t_flags flags)
+{
+	if (flags.width_before > 0 || flags.precision > 0)
+		j = ft_hex_width_before(va_arg(args, size_t), j, flags.flags[0], flags);
+	else if (flags.width_after > 0)
+		j = ft_hex_width_after(va_arg(args, size_t), j, flags.flags[0],
+				flags.width_after);
+	else
+		j = ft_hexl(va_arg(args, size_t), j, flags.flags[0]);
 	return (j);
 }

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 21:38:31 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/15 20:51:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:50:47 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,17 @@ int	ft_ptr_width_after(unsigned long ptr, int j, int width_after)
 {
 	j = ft_ptr(ptr, j);
 	j = ft_print_space(width_after - ft_hexlen(ptr) - 2, j, ' ');
+	return (j);
+}
+
+int	handle_format_p(va_list args, int j, t_flags flags)
+{
+	if (flags.width_before > 0)
+		j = ft_ptr_width_before(va_arg(args, unsigned long), j, flags);
+	else if (flags.width_after > 0)
+		j = ft_ptr_width_after(va_arg(args, unsigned long), j,
+				flags.width_after);
+	else
+		j = ft_ptr(va_arg(args, unsigned long), j);
 	return (j);
 }
