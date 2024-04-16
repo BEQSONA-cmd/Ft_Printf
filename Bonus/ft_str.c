@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 17:59:46 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/16 12:51:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/16 16:10:09 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_str_width_before(char *s, int j, t_flags flags, int precision)
 	k = 0;
 	if (!s)
 		s = "(null)";
-	if (precision == 0)
+	if (precision == 0 || precision > ft_strlen(s))
 		x = ft_strlen(s);
 	else if (precision < 0)
 		x = 0;

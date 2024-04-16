@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 20:55:19 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/16 13:51:31 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:31:54 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int			ft_str_width_before(char *s, int j, t_flags flags, int precision);
 int			ft_str_width_after(char *s, int j, int width_after, int precision);
 
 int			ft_char(char c, int i);
+int			ft_print_precent(int j, t_flags flags);
 int			ft_char_width_before(char c, int j, t_flags flags);
 int			ft_char_width_after(char c, int j, int width_after);
 int			handle_format_c(va_list args, int j, t_flags flags);

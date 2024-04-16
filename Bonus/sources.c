@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/17 19:31:55 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/16 13:43:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:36:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_handle_input(char c, va_list args, int j, t_flags flags)
 	else if (c == 'p')
 		j = handle_format_p(args, j, flags);
 	else if (c == '%')
-		j = ft_char('%', j);
+		j = ft_print_precent(j, flags);
 	return (j);
 }
 

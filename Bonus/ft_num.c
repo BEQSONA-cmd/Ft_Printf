@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 19:14:16 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/16 13:00:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:37:16 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,11 @@ int	ft_space_number_before(int n, int j, char c, t_flags flags)
 	int	x;
 	int	len;
 
-	i = n;
-	len = ft_numlen(i);
-	if (c == ' ' || c == '+')
+	len = ft_numlen((i = n));
+	if ((c == ' ' || c == '+') && i >= 0)
 		len++;
 	x = flags.width;
-	if (flags.precision > 0)
+	if (flags.precision > 0 && flags.precision >= len)
 	{
 		x = flags.precision;
 		flags.fill = '0';
@@ -82,10 +81,12 @@ int	ft_space_number_before(int n, int j, char c, t_flags flags)
 	}
 	if (i < 0 && flags.fill == '0')
 	{
+		j = ft_print_space(flags.width - (x + 1), j, ' ');
 		j = ft_char('-', j);
 		j = ft_print_space(x - len, j, flags.fill);
 		return (j = ft_num_p(i, j, c));
 	}
+	j = ft_print_space(flags.width - x, j, ' ');
 	j = ft_print_space(x - len, j, flags.fill);
 	return (j = ft_num(i, j, c));
 }

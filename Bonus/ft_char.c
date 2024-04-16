@@ -6,11 +6,22 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/14 18:45:19 by btvildia          #+#    #+#             */
-/*   Updated: 2024/04/16 12:50:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:31:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_print_precent(int j, t_flags flags)
+{
+	if (flags.width_before > 0)
+		j = ft_char_width_before('%', j, flags);
+	else if (flags.width_after > 0)
+		j = ft_char_width_after('%', j, flags.width_after);
+	else
+		j = ft_char('%', j);
+	return (j);
+}
 
 int	ft_char(char c, int j)
 {
